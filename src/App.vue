@@ -1,28 +1,47 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <a-layout style="height: 100%">
+    <a-layout-sider v-model="collapsed" collapsible>
+      <SideBar />
+    </a-layout-sider>
+    <a-layout-content>
+
+        <component :is="tabContent" />
+
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SideBar from './components/SideBar.vue'
+import Editor from './components/Editor.vue'
+import Folder from './components/Folder.vue'
+import Tags from './components/Tags.vue'
+import Search from './components/Search.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      collapsed: true,
+    };
+  },
   components: {
-    HelloWorld
+    SideBar,
+    Editor,
+    Folder,
+    Tags,
+    Search
+  },
+  computed: {
+    tabContent() {
+      switch(this.$store.state.currentTab) {
+        case 'dir': return Folder;
+        case 'tag': return Tags;
+        case 'edit': return Editor;
+        case 'search': return Search;
+        default: return Folder;
+      }
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

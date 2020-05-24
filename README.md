@@ -1,4 +1,6 @@
-# my-app
+# A naive Markdown Note Taker
+
+warning: this is a functional demo, and not workable!
 
 ## Project setup
 ```
@@ -7,12 +9,12 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run electron:serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+npm run electron:build
 ```
 
 ### Lints and fixes files
