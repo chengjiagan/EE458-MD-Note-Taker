@@ -22,7 +22,7 @@ class Item {
 
         if (this.isDir) {
             let children = _.filter(items, (e) => e.parent == this.key);
-            children = _.map(children, (e) => e.toTreeNode());
+            children = _.map(children, (e) => e.toTreeNode(items));
             node.children = children;
         } else {
             node.isLeaf = true;
@@ -139,6 +139,7 @@ export default new Vuex.Store({
                 new Note('Untitle Note', key, "", new Date(), [], parent));
         },
         addDir(state, {key, parent}) {
+            console.log(key, parent);
             Vue.set(state.items, key,
                 new Directory('Untitle Dir', key, parent));
         },

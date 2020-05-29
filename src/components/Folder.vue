@@ -39,7 +39,13 @@ export default {
       this.selectedKey = keys[0];
     },
     onDrop({dragNode, node}) {
-      this.$store.commit('changeNoteParent', {key: dragNode.eventKey, parent: node.eventKey});
+      let key = dragNode.eventKey;
+      let parent = node.eventKey;
+      if (!this.items[parent].isDir) {
+        parent = this.items[parent].parent;
+      }
+      this.$store.commit('changeNoteParent', {key, parent});
+      this.selectedKey = key;
     },
     isDir() {
       return this.items[this.selectedKey].isDir;
