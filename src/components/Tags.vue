@@ -1,7 +1,7 @@
 <template>
   <div style="position: relative; height: 100%">
     <a-button @click="onAddTag">Add Tag</a-button>
-    <a-button @click="onDeleteTag">Delete</a-button>
+    <a-button @click="onDelete">Delete</a-button>
     <a-directory-tree :tree-data="tags" @select="onSelect" />
     <ItemInfo v-if="this.selectedKey && this.isNote" class="item-info" :itemKey="selectedKey" />
     <a-modal title="Input New Tag Name" :visible="inputVisible" @ok="onOK" @cancel="inputVisible = false">
@@ -45,9 +45,11 @@ export default {
       this.inputVisible = false;
       this.$store.commit('addTag', this.tagName);
     },
-    onDeleteTag() {
+    onDelete() {
       if (!this.isNote) {
         this.$store.commit('removeTag', this.selectedKey);
+      } else {
+        this.$store.commit('removeItem', this.selectedKey);
       }
     }
   },
